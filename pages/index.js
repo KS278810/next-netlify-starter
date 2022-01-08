@@ -1,27 +1,23 @@
-const requestDeviceMotionPermission = async () => {
-    // ジャイロセンサーが使えるかどうか
-    if (window.DeviceOrientationEvent) {
-        // ios13以上
-        if (DeviceOrientationEvent.requestPermission && typeof DeviceOrientationEvent.requestPermission === 'function') {
-            const permission = await DeviceMotionEvent.requestPermission()
-            if (permission === 'granted') {
-                 window.addEventListener('deviceorientation', deviceorientation)
-            } else {
-                window.alert('許可されていません')
-            }
-        } else { // ios13未満
-            window.addEventListener('deviceorientation', deviceorientation)
-        }
-    } else {
-        window.alert('対応していません')
-    }
-}
+import Head from 'next/head'
+import Header from '@components/Header'
+import Footer from '@components/Footer'
 
-let alpha = 0, beta = 0, gamma = 0
+export default function Home() {
+  return (
+    <div className="container">
+      <Head>
+        <title>Next.js Starter!</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-const deviceorientation = (dat) => {
-    // iphoneとandroidで向きが逆なので-1を掛けて任意に修正
-    alpha = dat.alpha * -1
-    beta = dat.beta * -1
-    gamma = dat.gamma * -1
+      <main>
+        <Header title="スマホを動かすとここにジャイロ情報が表示されるイメージ" />
+        <p className="description">
+          Get started by editing <code>pages/index.js</code>
+        </p>
+      </main>
+
+      <Footer />
+    </div>
+  )
 }
